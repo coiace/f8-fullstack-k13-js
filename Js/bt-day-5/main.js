@@ -10,17 +10,43 @@ const employees = [
     { name: 'David', companyId: 2, salary: 20000000 },
     { name: 'Eve', companyId: 3, salary: 25000000 }
 ];
-
+/*
+const companies, employees                                                                                                             
+let result = companies.map                                    
+┌───────────────────────────────────────────────────────────────┐   
+│                                                               │   
+│  let employee = employees.filter                              │   
+│               │                                               │   
+│               ▼                                               │   
+│ ┌───────────────────────────────────┐                         │   
+│ │ employee.companyId === company.id │                         │   
+│ └───────────────────────────────────┘                         │   
+│                                                               │   
+│  let sum = 0                                                  │   
+│                                ┌────────────────────────────┐ │   
+│  for i=0,i<employee.length ───►│  sum += employee[i].salary │ │   
+│                                └────────────────────────────┘ │   
+│                                                               |
+|                                                               |
+|   let average = sum / employee.length                         │    
+│                                                               │   
+│  return {                                                     │   
+│          name: company.name,                                  │   
+│          employees: employee,                                 │   
+│          averageSalary: average                               │   
+│      }                                                        │   
+│                                                               │   
+└───────────────────────────────────────────────────────────────┘    
+**/
 let result = companies.map(company => {
     let employee = employees.filter(function(employee) {
         return employee.companyId === company.id
     })
-    let sum = 0; count = 0
+    let sum = 0;
     for(let i = 0; i < employee.length; i++) {
         sum += employee[i].salary
-        count++
     }
-    let average = sum / count
+    let average = sum / employee.length
     return {
         name: company.name,
         employees: employee,
