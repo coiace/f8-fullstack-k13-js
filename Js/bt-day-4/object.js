@@ -62,7 +62,7 @@ function findCommonNames(arr1, arr2) {
 findCommonNames(companyA, companyB);
 
 /**
-2. Viết hàm findCommonAgesAndName(arr1, arr2)mđểhtìm những người cóncùngnđộctuổiivàatênstrong cả hai danh sách.      
+2. Viết hàm findCommonAgesAndName(arr1, arr2) để tìm những người có cùng độ tuổi và tên trong cả hai danh sách.
                                                                                                                           
     const arr1 = [] , arr2 = []                                                                                       
                                                                                                                         
@@ -87,7 +87,7 @@ findCommonNames(companyA, companyB);
                                 │                        │                                    │                        
                                 │                        ▼                                    │                        
                                 │       console.log(`Những người...`)                         │                        
-                                └─────────────────────────────────────────────────────────────┘                        
+                                └─────────────────────────────────────────────────────────────┘
                                                                                                                           
 */
 function findCommonAgesAndName(arr1, arr2) {
