@@ -6,15 +6,16 @@ console.log(getFullName(user));
 
 /**                                       
     let money = order.price * order.quantity                                        
-0   [{price: 5000, quantity: 3},{price: 12000, quantity: 2},{price: 8000, quantity: 1}]      
-────────────────┬────────────      ────────┬───────────      ───────────┬──────────          
-                │                          │                            │                    
-                │                          │                            │                    
-                │                          │                            │                    
-                ▼                          ▼                            ▼                    
-            sum = 0                  sum = 15000                   sum = 39000               
-            money = 15000            money = 24000                 money = 8000              
-            return sum + money       return sum + money            return sum + money = 47000       
+ 0   [{price: 5000, quantity: 3},{price: 12000, quantity: 2},{price: 8000, quantity: 1}]
+                     ─────────────┬────────────                                         
+ ───────────┬───────────          │            ─────────────┬─────────────              
+            │                     │                         │                           
+            │                     │                         │                           
+            │                     ▼                         │                           
+            ▼               sum = 15000                     ▼                           
+        sum = 0             money = 24000              sum = 39000                      
+        money = 15000       return sum + money         money = 8000                     
+        return sum + money                             return sum + money = 47000      
 */
 const orders = [
 { item: "Bút", price: 5000, quantity: 3 },
