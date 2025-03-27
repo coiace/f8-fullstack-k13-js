@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Máy tính bỏ túi</title>
+    <style>
+        body {
+            background-color: #101218;
+        }
+        .main {
+            max-width: 480px;
+            margin: 48px auto 0;
+        }
+        .appear {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            padding: 8px;
+            height: 48px;
+            border: 1px solid #2e313b;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            color: #cdcdcd;
+            font-size: 20px;
+        }
+        .wrap-btn {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+        .btn, .result, .clear, .ec {
+            flex-basis: 22%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2e313b;
+            color: #cdcdcd;
+            border-radius: 29px;
+            box-sizing: border-box;
+            border-radius: 100px;
+            height: 42px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .btn:hover, .clear:hover, .result:hover, .ec:hover {
+            background-color: #3a3f50;
+        }
+    </style>
+</head>
+<body>
+    <!-- &#10088;
+    &#10089; -->
+    <div class="main">
+        <div class="appear"></div>
+        <div class="wrap-btn">
+            <div class="btn"></div>
+            <div class="btn"></div>
+            <div class="ec">EC</div>
+            <div class="clear">AC</div>
+            <div class="btn">7</div>
+            <div class="btn">8</div>
+            <div class="btn">9</div>
+            <div class="btn">/</div>
+            <div class="btn">4</div>
+            <div class="btn">5</div>
+            <div class="btn">6</div>
+            <div class="btn">x</div>
+            <div class="btn">1</div>
+            <div class="btn">2</div>
+            <div class="btn">3</div>
+            <div class="btn">-</div>
+            <div class="btn">0</div>
+            <div class="btn">.</div>
+            <div class="result">=</div>
+            <div class="btn">+</div>
+
+        </div>
+    </div>
+</body>
+<script>
+    let appear = document.querySelector('.appear')
+    let btns = document.querySelectorAll('.btn')
+    let clear = document.querySelector('.clear')
+    let result = document.querySelector('.result')
+    let ec = document.querySelector('.ec')
+    btns.forEach((btn) => {
+        btn.onclick = () => {
+            // appear.innerHTML = `${appear.innerText}${btn.innerText}`
+            appear.innerHTML += btn.innerText
+        }
+    })
+    clear.onclick = () => {
+        appear.innerHTML = ''
+    }
+    ec.onclick = () => {
+        appear.innerHTML = appear.innerHTML.slice(0, -1)
+    }
+    result.onclick = () => {
+        let str = appear.innerHTML
+        if(str.includes('+')) {
+            result = Number(str.split('+')[0]) + Number(str.split('+')[1])
+            appear.innerHTML = result
+        }
+        if(str.includes('-')) {
+            result = Number(str.split('-')[0]) - Number(str.split('-')[1])
+            appear.innerHTML = result
+        }
+        if(str.includes('x')) {
+            result = Number(str.split('x')[0]) * Number(str.split('x')[1])
+            appear.innerHTML = result
+        }
+        if(str.includes('/')) {
+            result = Number(str.split('/')[0]) / Number(str.split('/')[1])
+            appear.innerHTML = result
+        }
+    }
+    
+</script>
+</html>
