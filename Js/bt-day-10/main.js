@@ -47,6 +47,7 @@ sideBars.forEach(sideBar => {
     `
     }
 })
+// Onclick sidebar level2
 const sideBarLevel2 = document.querySelectorAll('.side-bar__item.level2')
 sideBarLevel2.forEach(e => {
     e.onclick = () => {
@@ -64,9 +65,11 @@ const keys = ['Id', "Name", "Email", "Action"]
 
 const table = document.querySelector('.table') 
 const thead = document.querySelector('.table-header')
+// Table header
 keys.forEach(key => {
     thead.innerHTML += `<div class="table-header__cell">${key}</div>`
 })
+// Table body
 members.forEach(member => {
     const newDiv = document.createElement("div");
     newDiv.classList.add('table-body')
@@ -87,6 +90,7 @@ members.forEach(member => {
     `
     table.append(newDiv)
 })
+// Onclick Button
 const btnEdits = document.querySelectorAll(".edit-btn")
 const overlay = document.querySelector('.overlay')
 btnEdits.forEach(btnEdit => {
@@ -94,6 +98,7 @@ btnEdits.forEach(btnEdit => {
         overlay.classList.remove('none')
     }
 })
+// Hidden overlay
 function remove() {
     overlay.classList.add('none')
 }
