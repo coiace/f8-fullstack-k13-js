@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>Máy tính bỏ túi</title>
+    <style>
+        body {
+            background-color: #101218;
+        }
+        #calc {
+            max-width: 480px;
+            margin: 48px auto 0;
+        }
+        #screen {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            padding: 8px;
+            height: 48px;
+            border: 1px solid #2e313b;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            color: #cdcdcd;
+            font-size: 20px;
+        }
+        #keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+        .btn {
+            flex-basis: 22%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2e313b;
+            color: #cdcdcd;
+            border-radius: 29px;
+            box-sizing: border-box;
+            border-radius: 12px;
+            height: 42px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #3a3f50;
+        }
+    </style>
+</head>
+<body>
+    <div id="calc">
+        <div id="screen"></div>
+        <div id="keyboard">
+            <!-- <div class="btn">1</div> -->
+        </div>
+    </div>
+
+    <script>
+        const btnContent = [
+            { text: 'One', value: 1 },
+            { text: 'Two', value: 2 },
+            { text: 'Three', value: 3 },
+            { text: 'Plus', value: '+' },
+            { text: 'Four', value: 4 },
+            { text: 'Five', value: 5 },
+            { text: 'Six', value: 6 },
+            { text: 'Minus', value: '-' },
+            { text: 'Seven', value: 7 },
+            { text: 'Eight', value: 8 },
+            { text: 'Nine', value: 9 },
+            { text: 'Times', value: '*' },
+            { text: 'AC', value: 'AC' },
+            { text: 'Zero', value: 0 },
+            { text: 'Equals', value: '=' },
+            { text: 'Divide', value: '/' }
+        ]
+        const keyboardElement = document.getElementById("keyboard")
+        btnContent.forEach(btn => {
+            keyboardElement.innerHTML += `<div class="btn" onclick="onClick('${btn.value}')" >${btn.text}</div>`
+        })
+        const onClick = (value) => {
+            console.log(value)
+        }
+    </script>
+</body>
+</html>
