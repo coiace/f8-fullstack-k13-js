@@ -2,27 +2,27 @@
 const input = document.querySelector('.todo-input')
 const button = document.querySelector('.todo-btn')
 const form = document.querySelector('.TodoForm')
-const todos = document.querySelector('.TodoWrapper')
+const todoWrapper = document.querySelector('.TodoWrapper')
 
-const todoList = JSON.parse(localStorage.getItem('todos'))
+const todos = []
 
-if(todoList) {
-    todoList.forEach(todo => addTodo(todo))
+if(todos) {
+    todos.forEach(todo => addTodo(todo))
 }
 
 function addTodo(todo) {
     const div = document.createElement('div')
     div.classList.add('Todo')
     div.innerHTML = `
-        <label>${todo.text}</label>
+        <p>${todo.text}</p>
         <div>
             <i onclick="editing(event)" class="fa-solid fa-pen-to-square"></i>
             <i class="fa-solid fa-trash"></i>
         </div>
     `
 
-    div.querySelector('label').onclick = function() {
-        div.querySelector('label').classList.toggle('completed')
+    div.querySelector('p').onclick = function() {
+        div.querySelector('p').classList.toggle('completed')
         updateTodo()
     }
 
@@ -30,13 +30,13 @@ function addTodo(todo) {
         this.parentElement.parentElement.remove()
         updateTodo()
     }
-    todos.appendChild(div)
+    todoWrapper.appendChild(div)
     updateTodo()
 }
 
 function editing(e) {
     const oldDiv = e.target.closest('.Todo')
-    const oldText = oldDiv.querySelector('label').innerText
+    const oldText = oldDiv.querySelector('p').innerText
 
     const form = document.createElement('form')
     form.classList.add('TodoForm')
@@ -79,14 +79,11 @@ form.onsubmit = function(e) {
 
 function updateTodo() {
     const list = document.querySelectorAll('.Todo')
-    const todos = []
 
     list.forEach(item => {
         todos.push({
-            text: item.querySelector('label').innerHTML,
+            text: item.querySelector('p').innerHTML,
 			completed: item.classList.contains('completed'),
         })
     })
-
-    localStorage.setItem('todos', JSON.stringify(todos))
 }
