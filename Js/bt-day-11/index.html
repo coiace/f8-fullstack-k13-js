@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .autocomplete {
+        width: 250px;
+        margin: 50px auto;
+    }
+    .input-wrapper {
+        position: relative;
+    }
+    input {
+        width: 100%;
+        font-size: 16px;
+        padding: 8px;
+        outline: none;
+        border: 1px solid #8083a6;
+        border-radius: 5px;
+        padding-right: 24px;
+    }
+    input:focus {
+        border: 1px solid #4451EB;
+    }
+    .dropdown {
+        border: 1px solid #ccc;
+        max-height: 200px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        margin-top: 8px;
+    }
+    .dropdown .item {
+        width: 100%;
+        padding: 6px;
+    }
+    .dropdown-btn {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-40%);
+        cursor: pointer;
+        font-size: 14px;
+        color: #999;
+    }
+    .dropdown-btn.up {
+        transform: translateY(-50%) rotate(180deg);
+    }
+    .dropdown-btn:hover {
+        color: black;
+    }
+    .highlight {
+        background-color: #cad0fb;
+    }
+    .none {
+        display: none;
+    }
+</style>
+
+<body>
+<div class="autocomplete">
+    <form autocomplete="off">
+        <div class="input-wrapper">
+            <input name="name" type="search">
+        </div>
+        <div class="dropdown none"></div>
+    </form>
+</div>
+<script>
+    const members = [
+    { id: 1, name: 'Trung' },
+    { id: 2, name: 'Dung' },
+    { id: 3, name: 'Luc' },
+    { id: 4, name: 'Son' },
+    { id: 5, name: 'Giang' },
+    { id: 6, name: 'Hoc' },
+    { id: 7, name: 'Dat' },
+    { id: 8, name: 'Huy' },
+    { id: 9, name: 'Vuong' }
+];
+
+let filteredMembers = [...members];
+let cursor = null;
+
+const inputElement = document.querySelector('input');
+const listElement = document.querySelector('.dropdown');
+
+const onRender = () => {
+    if (filteredMembers.length === 0) {
+        listElement.classList.add('none');
+        return;
+    }
+
+    listElement.classList.remove('none');
+    listElement.innerHTML = filteredMembers
+        .map(member => `<div class="item">${member.name}</div>`)
+        .join('');
+    attachItemClickEvents();
+};
+
+inputElement.addEventListener("focus", () => {
+    // listElement.classList.remove("none");
+    filteredMembers = members.filter(member => member.name.includes(inputElement.value));
+    onRender(); // Thêm dòng này để đảm bảo render lại dropdown đúng
+    listElement.classList.remove("none");
+});
+
+inputElement.addEventListener("blur", () => {
+    setTimeout(() => listElement.classList.add("none"), 100);
+});
+
+
+inputElement.addEventListener('input', () => {
+    filteredMembers = members.filter(member => member.name.includes(inputElement.value));
+    cursor = null; 
+    onRender();
+});
+
+const attachItemClickEvents = () => {
+    document.querySelectorAll('.item').forEach(itemElement => {
+        itemElement.onclick = () => {
+            inputElement.value = itemElement.textContent;
+            // inputElement.blur()
+            listElement.classList.add("none");
+        };
+    });
+}
+
+inputElement.addEventListener('keydown', (event) => {
+    const itemElements = document.querySelectorAll('.item');
+
+    if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        if (cursor === null || cursor === itemElements.length - 1) {
+            cursor = 0;
+        } else {
+            cursor++;
+        }
+    }
+
+    else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (cursor === null || cursor === 0) {
+            cursor = itemElements.length - 1;
+        } else {
+            cursor--;
+        }
+    }
+
+    else if (event.key === 'Enter') {
+        event.preventDefault();
+        if (cursor !== null && filteredMembers[cursor]) {
+            inputElement.value = filteredMembers[cursor].name;
+            listElement.classList.add('none');
+        }
+        return;
+    }
+
+    itemElements.forEach((itemElement, index) => {
+        itemElement.classList.toggle('highlight', index === cursor);
+    });
+
+    const highlightedItem = itemElements[cursor];
+    if (highlightedItem) {
+        highlightedItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+});
+
+onRender();
+</script>
+</body>
+</html>
+
