@@ -22,7 +22,7 @@ function addTodo(todo) {
     `
 
     div.querySelector('p').onclick = function() {
-        div.querySelector('p').classList.toggle('completed')
+        this.querySelector('p').classList.toggle('completed')
         updateTodo()
     }
 
@@ -79,10 +79,11 @@ form.onsubmit = function(e) {
 
 function updateTodo() {
     const list = document.querySelectorAll('.Todo')
+    todos.length = 0
 
     list.forEach(item => {
         todos.push({
-            text: item.querySelector('p').innerHTML,
+            text: item.querySelector('p').innerText,
 			completed: item.classList.contains('completed'),
         })
     })
