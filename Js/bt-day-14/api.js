@@ -1,28 +1,36 @@
-const baseUrl = "http://localhost:3000"
-const baseUrlJobs = "http://localhost:3000/jobs"
+const baseUrl = 'https://api-todolist-multiuser.onrender.com/Luc/todos';
 
-const getData = async (endpoint) => {
-    const response = await fetch(`${baseUrl}/${endpoint}`)
+const getData = async () => {
+    const response = await fetch(`${baseUrl}`)
     return await response.json()
 }
 
-const postData = async (endpoint, payload) => {
-    const response = await fetch(`${baseUrl}/${endpoint}`, {
-        method: 'post',
+const postData = async (payload) => {
+    const response = await fetch(`${baseUrl}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(payload)
-    })
-    return await response.json()
-}
+    });
+
+    if (!response.ok) {
+        console.error("POST failed", response.status);
+        throw new Error("POST failed");
+    }
+
+    return await response.json();
+};
 
 const deleteData = async (id) =>{
-    const response = await fetch(`${baseUrlJobs}/${id}`,{
+    const response = await fetch(`${baseUrl}/${id}`,{
         method: 'delete',
     })
     return await response.json()
 }
 
 const putData = async (id, payload) => {
-    const response = await fetch(`${baseUrlJobs}/${id}`,{
+    const response = await fetch(`${baseUrl}/${id}`,{
         method: 'put',
         headers: {
             'Content-Type': 'application/json',

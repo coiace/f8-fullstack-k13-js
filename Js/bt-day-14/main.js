@@ -17,7 +17,7 @@ const onDeleteTask = async (id) => {
 };
 
 const renderTasks = async () => {
-  const jobs = await getData("jobs");
+  const jobs = await getData();
 
   todoWrapper.querySelectorAll(".Todo").forEach((el) => el.remove());
 
@@ -32,7 +32,7 @@ const renderTasks = async () => {
     textElement.onclick = async () => {
       const isCompleted = todo.classList.contains("completed");
       await onUpdateTask(jobId, {
-        name: textElement.innerText,
+        title: textElement.innerText,
         completed: !isCompleted,
       });
     };
@@ -44,37 +44,41 @@ const renderTasks = async () => {
 };
 
 const replaceWithEditForm = (todoElement, jobId, oldText) => {
-  const editForm = document.createElement("form");
-  editForm.className = "TodoForm";
-
-  editForm.innerHTML = `
-    <input type="text" class="todo-input" placeholder="Edit task..." value="${oldText}" />
-    <button type="submit" class="todo-btn">Update Task</button>
-  `;
-
-  todoElement.replaceWith(editForm);
-
-  const inputEdit = editForm.querySelector(".todo-input");
-  inputEdit.focus();
-
-  editForm.onsubmit = async (e) => {
-    e.preventDefault();
-    const newText = inputEdit.value.trim();
-    if (!newText) return;
-
-    await onUpdateTask(jobId, {
-      name: newText,
-      completed: false,
+    const editForm = document.createElement("form");
+    editForm.className = "TodoForm";
+  
+    editForm.innerHTML = `
+      <input type="text" class="todo-input" placeholder="Edit task..." value="${oldText}" />
+      <button type="submit" class="todo-btn">Update Task</button>
+    `;
+  
+    todoElement.replaceWith(editForm);
+  
+    const inputEdit = editForm.querySelector(".todo-input");
+    inputEdit.focus();
+  
+    editForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const newText = inputEdit.value.trim();
+        if (!newText) return;
+    
+        await onUpdateTask(jobId, {
+            title: newText,
+            completed: false,
     });
+
+    renderTasks();
+  
+    };
   };
-};
+  
 
 form.onsubmit = async (e) => {
   e.preventDefault();
   const inputValue = input.value.trim();
   if (!inputValue) return;
 
-  await postData("jobs", { name: inputValue, completed: false });
+  await postData({ title: inputValue, completed: false });
   input.value = "";
   await renderTasks();
 };
